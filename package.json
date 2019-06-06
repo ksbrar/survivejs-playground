@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/ksbrar/survivejs-webpack-book/issues"
   },
-  "homepage": "https://github.com/ksbrar/survivejs-webpack-book#readme"
+  "homepage": "https://github.com/ksbrar/survivejs-webpack-book#readme",
+  "devDependencies": {
+    "webpack": "^4.33.0",
+    "webpack-cli": "^3.3.2"
+  }
 }
