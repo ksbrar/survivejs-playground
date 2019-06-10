@@ -1,24 +1,38 @@
-var webpack = require("webpack");
-
-require('dotenv').config();
-
+// Top-level imports:
+const webpack = require("webpack");
+const merge = require("webpack-merge");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const dotenv = require("dotenv");
 
-module.exports = {
-    plugins: [
-        new HtmlWebpackPlugin({
-            title: "Webpack demo",
-        }),
-        new webpack.HotModuleReplacementPlugin(),
-    ],
+// Parts imports:
+const parts_devServer = require("./webpack.parts.devServer");
 
-    devServer: {
-        stats: "errors-only",
-        overlay: true,
-        hotOnly: true,
+// Use .env file for initialization:
+dotenv.config();
 
-        host: process.env.host,
-        port: process.env.ENV_PORT,
-        open: true,
+const commonParts = merge([
+    {
+        plugins: [
+            new HtmlWebpackPlugin({
+                title: "Webpack demo y'all",
+            })
+        ]
     }
-};
+])
+
+const productionConfig = merge([]);
+
+const developmentConfig = merge([
+    parts_devServer.devServer({
+        host: localhost,
+        port: 8082,
+    })
+])
+
+module.exports = mode => {
+    if (mode === "prod") {
+        return merge(commonParts, productionConfig, { mode });
+    }
+
+    return merge(commonParts, developmentConfig, { mode });
+}
