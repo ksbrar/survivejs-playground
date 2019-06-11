@@ -24,8 +24,9 @@ const productionConfig = merge([]);
 
 const developmentConfig = merge([
     parts_devServer.devServer({
-        host: localhost,
-        port: 8082,
+        // `process` is exposed as a global by Node, but we will stick to using local env. vars. here!
+        host: dotenv.ENV_HOST,
+        port: dotenv.ENV_PORT,
     })
 ])
 
