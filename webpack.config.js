@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const dotenv = require("dotenv");
 
 // Parts imports:
+const parts = require("./webpack.parts");
 const parts_devServer = require("./webpack.parts.devServer");
 
 // Use .env file for initialization:
@@ -17,7 +18,8 @@ const commonParts = merge([
                 title: "Webpack demo y'all",
             })
         ]
-    }
+    },
+    parts.loadCSS(),
 ])
 
 const productionConfig = merge([]);
