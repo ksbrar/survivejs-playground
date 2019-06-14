@@ -26,9 +26,32 @@ export default class App extends React.Component {
 
         return (
             <div>
-                <button onClick={() => console.log('add note')}>+</button>
-                <Notes notes={notes} />
+                <button onClick={this.addNote}>+</button>
+                <Notes notes={notes} onDelete={this.deleteNote} />
             </div>
         );
+    }
+
+    // Written in FP-style rather than an imperative-style push: ...
+
+    deleteNote = (id, e) => {
+        console.log('Delete note!');
+
+        e.stopPropagation();
+
+        this.setState({
+            notes: this.state.notes.filter(note => note.id !== id)
+        })
+    }
+
+    addNote = () => {
+        console.log('Add note!');
+
+        this.setState({
+            notes: this.state.notes.concat([{
+                id: uuid.v4(),
+                task: 'New task?',
+            }])
+        });
     }
 }
