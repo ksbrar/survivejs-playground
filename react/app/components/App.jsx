@@ -27,7 +27,12 @@ export default class App extends React.Component {
         return (
             <div>
                 <button onClick={this.addNote}>+</button>
-                <Notes notes={notes} onDelete={this.deleteNote} />
+                <Notes
+                    notes={notes}
+                    onNoteClick={this.activateNoteEdit}
+                    onEdit={this.editNote}
+                    onDelete={this.deleteNote}
+                />
             </div>
         );
     }
@@ -52,6 +57,35 @@ export default class App extends React.Component {
                 id: uuid.v4(),
                 task: 'New task?',
             }])
+        });
+    }
+
+    activateNoteEdit = (id) => {
+        console.log('Activate note edit!');
+
+        this.setState({
+            notes: this.state.notes.map(note => {
+                if(note.id === id) {
+                    note.editing = true;
+                }
+
+                return note;
+            })
+        });
+    }
+
+    editNote = (id, task) => {
+        console.log('Edit note!');
+
+        this.setState({
+            notes: this.state.notes.map(note => {
+                if(note.id === id) {
+                    note.editing = false;
+                    note.task = task;
+                }
+
+                return note;
+            })
         });
     }
 }
